@@ -1,0 +1,51 @@
+#include <GL/glut.h>
+#include <stdio.h>
+static void display(void)
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glutSolidTeapot(0.3);
+    glutSwapBuffers();
+}
+void mouse(int button,int state,int x,int y)
+{
+    printf ("button:%d state:%d x:%d y:%d\n",button,state,x,y);
+}
+int main(int argc, char *argv[]){
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+    glutCreateWindow("08160793 good!");
+    glutDisplayFunc ( display );
+    glutMouseFunc ( mouse );
+    glutMainLoop();
+}
+點擊滑鼠知道座標~
+
+#include <GL/glut.h>
+int N=0,vx[3000],vy[3000];
+void display()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glBegin(GL_LINE_LOOP);
+    for (int i=0;i<N;i++)
+    {
+        glVertex2f((vx[i]-150)/150.0,-(vy[i]-150)/150.0);
+    }
+    glEnd();
+    glutSwapBuffers();
+}
+void motion(int x,int y)
+{
+    vx[N]=x,vy[N]=y;
+    N++;
+    display();
+}
+int main(int argc, char *argv[]){
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+    glutCreateWindow("08160793 good!");
+    glutDisplayFunc ( display );
+    glutMotionFunc(motion);
+    glutMainLoop();
+}
+畫線，有開頭跟結尾
+
