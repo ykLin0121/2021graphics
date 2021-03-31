@@ -1,0 +1,199 @@
+#include <GL/glut.h>float angle=0;void display()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glPushMatrix();
+    glRotatef(angle,0,0,1);
+    glutSolidCube(1);    
+    glPopMatrix();    
+    glutSwapBuffers();    
+    angle++;
+}
+    int main(int argc, char **argv)
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+    glutCreateWindow("08160793 good!");
+    glutDisplayFunc ( display );
+    glutIdleFunc(display);
+    glutMainLoop();
+}
+方塊往左旋轉
+#include <GL/glut.h>float angle=0;void display()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glPushMatrix();
+    glRotatef(angle,0,0,1);    
+    glScalef(0.5,0.1,0.1);    
+    glColor3f(0,0,1);    
+    glutSolidCube(1);    
+    glPopMatrix();    
+    glutSwapBuffers();    
+    angle++;
+}
+    int main(int argc, char **argv)
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+    glutCreateWindow("08160793 good!");
+    glutDisplayFunc ( display );
+    glutIdleFunc(display);
+    glutMainLoop();
+}
+小方塊旋轉
+#include <GL/glut.h>float angle=0;void hand()
+{    
+  glPushMatrix();    
+  glScalef(0.5,0.1,0.1);    
+  glColor3f(0,0,1);    
+  glutSolidCube(1);    
+  glPopMatrix();
+}
+void display()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glPushMatrix();
+    glRotatef(angle,0,0,1);    
+    glScalef(0.5,0.1,0.1);    
+    hand();    
+    glPopMatrix();    
+    glutSwapBuffers();    
+    angle++;
+}
+int main(int argc, char **argv)
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+    glutCreateWindow("08160793 good!");
+    glutDisplayFunc ( display );
+    glutIdleFunc(display);
+    glutMainLoop();
+}
+固定轉軸
+#include <GL/glut.h>float angle=0;void hand()
+{    
+  glPushMatrix();    
+  glScalef(0.5,0.1,0.1);    
+  glColor3f(0,0,1);    
+  glutSolidCube(1);    
+  glPopMatrix();
+}
+void display()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);    
+    glColor3f(1,1,1); glutSolidCube(1);    
+    glPushMatrix();    
+    glTranslatef(0.5,0.5,0);    
+    glRotatef(angle,0,0,1);    
+    glTranslatef(0.25,0,0);    
+    hand();    
+    glPopMatrix();    
+    glutSwapBuffers();    
+    angle++;
+ }
+ int main(int argc, char **argv)
+ {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+    glutCreateWindow("08160793 good!");
+    glutDisplayFunc ( display );
+    glutIdleFunc(display);
+    glutMainLoop();
+}
+加方塊讓手守在右上方旋轉
+#include <GL/glut.h>float angle=0;void hand()
+{    
+  glPushMatrix();    
+  glScalef(0.5,0.1,0.1);    
+  glColor3f(0,0,1);    
+  glutSolidCube(1);   
+  glPopMatrix();
+}
+void display()/////容易出錯 glPushMatrix() or glPopMatrix()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);    
+    glColor3f(1,1,1); 
+    glutSolidCube(1);    
+    glPushMatrix();   
+    glTranslatef(0.5,0.5,0);    
+    glRotatef(angle,0,0,1);    
+    glTranslatef(0.25,0,0);   
+    hand();    
+      glPushMatrix();       
+      glTranslatef(0.25,0,0);        
+      glRotatef(angle,0,0,1);        
+      glTranslatef(0.25,0,0);        
+      hand();    
+      glPopMatrix();    
+    glPopMatrix();    
+    glutSwapBuffers();    
+    angle++;
+}
+int main(int argc, char **argv)
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+    glutCreateWindow("08160793 good!");
+    glutDisplayFunc ( display );
+    glutIdleFunc(display);
+    glutMainLoop();
+}
+再加一個關節
+#include <GL/glut.h>
+float angle=0;
+void hand()
+{
+    glPushMatrix();
+    glScalef(0.5,0.1,0.1);
+    glColor3f(0,0,1);
+    glutSolidCube(1);
+    glPopMatrix();
+}
+void display()
+{
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glColor3f(1,1,1); glutSolidCube(0.5);
+    glPushMatrix();
+    glTranslatef(0.25,0.25,0);
+    glRotatef(angle,0,0,1);
+    glTranslatef(0.25,0,0);
+    hand();
+        glPushMatrix();
+            glTranslatef(0.25,0,0);
+            glRotatef(angle,0,0,1);
+            glTranslatef(0.25,0,0);
+            hand();
+        glPopMatrix();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-0.25,0.25,0);
+    glRotatef(-angle,0,0,1);
+    glTranslatef(-0.25,0,0);
+    hand();
+        glPushMatrix();
+            glTranslatef(-0.25,0,0);
+            glRotatef(-angle,0,0,1);
+            glTranslatef(-0.25,0,0);
+            hand();
+        glPopMatrix();
+    glPopMatrix();
+    glutSwapBuffers();
+    angle++;
+}
+int main(int argc, char **argv){
+
+    glutInit(&argc, argv);
+
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+
+    glutCreateWindow("08160793 good!");
+
+    glutDisplayFunc ( display );
+
+    glutIdleFunc(display);
+
+    glutMainLoop();
+
+}
+左右邊各加上手臂
